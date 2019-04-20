@@ -22,6 +22,11 @@ class ElectronsViewController: UIViewController {
     self.view = view
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.typedView.touchDelegate = self
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
@@ -44,5 +49,11 @@ class ElectronsViewController: UIViewController {
   
   override var prefersStatusBarHidden: Bool {
     return true
+  }
+}
+
+extension ElectronsViewController: ElectronsViewTouchDelegate {
+  func touch(at point: CGPoint?) {
+    self.model.touch = point
   }
 }

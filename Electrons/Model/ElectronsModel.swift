@@ -3,6 +3,7 @@ import CoreGraphics
 import UIKit
 
 class ElectronsModel {
+  internal var touch: CGPoint?
   private var electrons: [Electron]
   private var timer = Timer()
   private let capacity: Int
@@ -11,6 +12,7 @@ class ElectronsModel {
   private let wallDistance: Double = 30
   // Forces will start kicking in at sqrt(electronDistanceSquared) dots distance
   private let electronDistanceSquared: Double = 8100
+  private let touchDistanceSquared: Double = 62500
   
   private var diffVectors: [SIMD2<Double>]
   
@@ -102,6 +104,24 @@ class ElectronsModel {
         let d = Double(UIScreen.main.bounds.height) - firstElectron.position.y - 10
         let d2 = d * d
         diffVectors[current] += SIMD2<Double>.init(x: 0, y: -50 / d2)
+      }
+      
+      if let touch = self.touch {
+        let xComponent = firstElectron.position.x - Double(touch.x)
+        let yComponent = firstElectron.position.y - Double(touch.y)
+        
+        let distanceSquared = (xComponent * xComponent) + (yComponent * yComponent)
+        
+        // Calculate force vectors only if the current electron is close to the touch site
+        if distanceSquared < touchDistanceSquared {
+          
+          // Calculate the angle at which the force will be applied
+          let angle = atan2(Double(touch.y) - firstElectron.position.y, Double(touch.x) - firstElectron.position.x)
+          
+          var force = SIMD2<Double>.init(x: (1000 * cos(angle) / distanceSquared), y: (1000 * sin(angle) / distanceSquared))
+          force *= -1
+          diffVectors[current] += force
+        }
       }
       
       /*
