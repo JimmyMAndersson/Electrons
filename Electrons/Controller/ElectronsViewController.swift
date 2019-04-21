@@ -35,12 +35,17 @@ class ElectronsViewController: UIViewController {
      with the number of electrons specified in AppDelegate, whichever one is
      larger.
      */
-    for y in stride(from: 10, to: typedView.bounds.maxY - 10, by: 20) {
-      for x in stride(from: 10, to: typedView.bounds.maxX - 10, by: 20) {
-        guard let electronLayer = model.addElectron(at: .init(x: x, y: y)) else { return }
+    for y in stride(from: 20, to: typedView.bounds.maxY - 20, by: 10) {
+      for x in stride(from: 20, to: typedView.bounds.maxX - 20, by: 10) {
+        guard let electronLayer = model.addElectron(at: .init(x: x, y: y)) else { continue }
         self.typedView.layer.addSublayer(electronLayer)
       }
     }
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.model.start()
   }
   
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     self.window = UIWindow(frame: UIScreen.main.bounds)
     self.window?.makeKeyAndVisible()
-    let model = ElectronsModel(capacity: 300)
+    let model = ElectronsModel(capacity: 400)
     self.window?.rootViewController = ElectronsViewController(model: model)
     return true
   }

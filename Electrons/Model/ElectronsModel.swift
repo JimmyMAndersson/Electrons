@@ -21,6 +21,10 @@ class ElectronsModel {
     self.electrons.reserveCapacity(capacity)
     self.diffVectors = [SIMD2<Double>](repeating: .zero, count: capacity)
     self.capacity = capacity
+  }
+  
+  internal func start() {
+    self.timer.invalidate()
     self.timer = Timer(timeInterval: 1/60, repeats: true, block: { (_) in
       self.updateModel()
     })
@@ -43,10 +47,8 @@ class ElectronsModel {
   }
   
   private func calculateForces() {
-    guard self.electrons.count > 1 else { return }
-    
     // Reset the differential vectors for a new update pass
-    for i in 0..<self.electrons.count {
+    for i in 0..<self.diffVectors.count {
       diffVectors[i].x = 0
       diffVectors[i].y = 0
     }
@@ -59,29 +61,32 @@ class ElectronsModel {
        This means that if we compare the first electron to all others and update both differential vectors as we make comparisons,
        we won't have to revisit the first electron for further comparisons once we're done with the first iteration.
        
-       The sum of all comparisons will be (n - 1)*(n - 2)* ... *(1) = n^2 / 2
+       The sum of all comparisons will be (n - 1)*(n - 2)* ... *(1) = n*(n - 1) / 2
        */
-      for comparison in current + 1..<self.electrons.count {
-        let secondElectron = self.electrons[comparison]
-        
-        let xComponent = firstElectron.position.x - secondElectron.position.x
-        let yComponent = firstElectron.position.y - secondElectron.position.y
-        
-        let distanceSquared = (xComponent * xComponent) + (yComponent * yComponent)
-        
-        // Calculate force vectors only if two electrons are sufficiently close to each other
-        if distanceSquared < electronDistanceSquared {
+      
+      if self.electrons.count > 1 {
+        for comparison in current + 1..<self.electrons.count {
+          let secondElectron = self.electrons[comparison]
           
-          // Calculate the angle at which the force will be applied
-          let angle = atan2(secondElectron.position.y - firstElectron.position.y, secondElectron.position.x - firstElectron.position.x)
+          let xComponent = firstElectron.position.x - secondElectron.position.x
+          let yComponent = firstElectron.position.y - secondElectron.position.y
           
-          var force = SIMD2<Double>.init(x: (30 * cos(angle) / distanceSquared), y: (30 * sin(angle) / distanceSquared))
+          let distanceSquared = (xComponent * xComponent) + (yComponent * yComponent)
           
-          diffVectors[comparison] += force
-          
-          // Flip the force vector to apply the exact opposite force to the first electron
-          force *= -1
-          diffVectors[current] += force
+          // Calculate force vectors only if two electrons are sufficiently close to each other
+          if distanceSquared < electronDistanceSquared {
+            
+            // Calculate the angle at which the force will be applied
+            let angle = atan2(secondElectron.position.y - firstElectron.position.y, secondElectron.position.x - firstElectron.position.x)
+            
+            var force = SIMD2<Double>.init(x: (36 * cos(angle) / distanceSquared), y: (36 * sin(angle) / distanceSquared))
+            
+            diffVectors[comparison] += force
+            
+            // Flip the force vector to apply the exact opposite force to the first electron
+            force *= -1
+            diffVectors[current] += force
+          }
         }
       }
       

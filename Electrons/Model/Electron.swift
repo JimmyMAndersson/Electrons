@@ -21,11 +21,9 @@ class Electron {
     didSet {
       // Normalize the velocity vector in case the total velocity gained in one update is more than Electron.maxVelocity
       if self.velocity.x + self.velocity.y > Electron.maxVelocity {
-        let speed = (self.velocity.x * self.velocity.x) + (self.velocity.y * self.velocity.y)
-        if speed > Electron.maxVelocitySquared {
-          let angle = atan2(self.velocity.y, self.velocity.x)
-          self.velocity.x = Electron.maxVelocity * cos(angle)
-          self.velocity.y = Electron.maxVelocity * sin(angle)
+        let speed = sqrt((self.velocity.x * self.velocity.x) + (self.velocity.y * self.velocity.y))
+        if speed > Electron.maxVelocity {
+          self.velocity *= (Electron.maxVelocity / speed)
         }
       }
     }
