@@ -2,21 +2,20 @@ import CoreGraphics
 import Foundation
 import UIKit
 
+protocol VisualUpdaterDelegate: class {
+  func positionWasUpdated(_ position: CGPoint) -> Void
+}
+
 class Electron {
-  private static let fillColors: [CGColor] = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.green.cgColor, UIColor.purple.cgColor, UIColor.yellow.cgColor]
   internal static let radius: CGFloat = 2
   internal static let maxVelocity: Double = 3
   private static let maxVelocitySquared: Double = Electron.maxVelocity * Electron.maxVelocity
   
-  internal private(set) var position: SIMD2<Double>
-  private let id: Int
-  private let path: UIBezierPath
+  @objc internal private(set) var position: SIMD2<Double>
+  internal let id: Int
   
-  internal private(set) var layer: CAShapeLayer = {
-    let layer = CAShapeLayer()
-    return layer
-  }()
-  
+  weak var visualDelegate: VisualUpdaterDelegate?
+
   internal var velocity: SIMD2<Double> {
     didSet {
       // Normalize the velocity vector in case the total velocity gained in one update is more than Electron.maxVelocity
@@ -33,9 +32,6 @@ class Electron {
     self.position = SIMD2<Double>(x: Double(point.x), y: Double(point.y))
     self.velocity = SIMD2<Double>(x: Double.random(in: -Electron.maxVelocity...Electron.maxVelocity), y: Double.random(in: -Electron.maxVelocity...Electron.maxVelocity))
     self.id = id
-    self.layer.fillColor = Electron.fillColors[id % Electron.fillColors.count]
-    self.path = UIBezierPath(arcCenter: .init(x: position.x, y: position.y), radius: Electron.radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-    self.layer.path = path.cgPath
   }
   
   internal func update() {
@@ -62,9 +58,8 @@ class Electron {
     if self.position.y - Double(Electron.radius) <= 0 || self.position.y + Double(Electron.radius) >= Double(UIScreen.main.bounds.height) {
       self.velocity.y *= -1
     }
-    // Update the Bezier path to reflect the electrons new position
-    self.path.removeAllPoints()
-    self.path.addArc(withCenter: .init(x: self.position.x, y: self.position.y), radius: Electron.radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-    self.layer.path = path.cgPath
+    
+    // Call back to the view to update the visual
+    self.visualDelegate?.positionWasUpdated(.init(x: self.position.x, y: self.position.y))
   }
 }

@@ -6,7 +6,7 @@ class ElectronsModel {
   internal var touch: CGPoint?
   private var electrons: [Electron]
   private var timer = Timer()
-  private let capacity: Int
+  internal let capacity: Int
   
   // Walls will apply forces to electrons starting at a distance of (wallDistance) dots
   private let wallDistance: Double = 20
@@ -36,11 +36,11 @@ class ElectronsModel {
   }
   
   @discardableResult
-  internal func addElectron(at point: CGPoint) -> CALayer? {
+  internal func addElectron(at point: CGPoint) -> Electron? {
     guard self.electrons.count < self.capacity else { return nil }
     let newElectron = Electron(at: point, id: self.electrons.count + 1)
     self.electrons.append(newElectron)
-    return newElectron.layer
+    return newElectron
   }
   
   private func updateModel() {

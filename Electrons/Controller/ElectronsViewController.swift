@@ -35,11 +35,13 @@ class ElectronsViewController: UIViewController {
      with the number of electrons specified in AppDelegate, whichever one is
      larger.
      */
-    for y in stride(from: 20, to: typedView.bounds.maxY - 20, by: 10) {
-      for x in stride(from: 20, to: typedView.bounds.maxX - 20, by: 10) {
-        guard let electronLayer = model.addElectron(at: .init(x: x, y: y)) else { continue }
-        self.typedView.layer.addSublayer(electronLayer)
-      }
+    
+    for _ in 0..<self.model.capacity {
+      let x = Double.random(in: Double(Electron.radius + 5)...Double(UIScreen.main.bounds.width - Electron.radius - 5))
+      let y = Double.random(in: Double(Electron.radius + 5)...Double(UIScreen.main.bounds.height - Electron.radius - 5))
+      guard let electron = model.addElectron(at: .init(x: x, y: y)) else { break }
+      let electronLayer = self.typedView.createNewElectronLayer(for: electron.id)
+      electron.visualDelegate = electronLayer
     }
   }
   
