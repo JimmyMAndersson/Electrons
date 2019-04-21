@@ -4,8 +4,8 @@ import UIKit
 
 class Electron {
   private static let fillColors: [CGColor] = [UIColor.blue.cgColor, UIColor.red.cgColor, UIColor.green.cgColor, UIColor.purple.cgColor, UIColor.yellow.cgColor]
-  private static let radius: CGFloat = 3
-  private static let maxVelocity: Double = 3
+  internal static let radius: CGFloat = 2
+  internal static let maxVelocity: Double = 3
   private static let maxVelocitySquared: Double = Electron.maxVelocity * Electron.maxVelocity
   
   internal private(set) var position: SIMD2<Double>

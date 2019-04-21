@@ -9,7 +9,8 @@ class ElectronsModel {
   private let capacity: Int
   
   // Walls will apply forces to electrons starting at a distance of (wallDistance) dots
-  private let wallDistance: Double = 30
+  private let wallDistance: Double = 20
+  private let electronDistance: Double = 4 * Double(Electron.radius * Electron.radius)
   // Forces will start kicking in at sqrt(electronDistanceSquared) dots distance
   private let electronDistanceSquared: Double = 8100
   private let touchDistanceSquared: Double = 62500
@@ -47,8 +48,10 @@ class ElectronsModel {
   }
   
   private func calculateForces() {
+    CATransaction.begin()
+    CATransaction.setDisableActions(true)
     // Reset the differential vectors for a new update pass
-    for i in 0..<self.diffVectors.count {
+    for i in 0..<self.electrons.count {
       diffVectors[i].x = 0
       diffVectors[i].y = 0
     }
@@ -79,7 +82,7 @@ class ElectronsModel {
             // Calculate the angle at which the force will be applied
             let angle = atan2(secondElectron.position.y - firstElectron.position.y, secondElectron.position.x - firstElectron.position.x)
             
-            var force = SIMD2<Double>.init(x: (36 * cos(angle) / distanceSquared), y: (36 * sin(angle) / distanceSquared))
+            var force = SIMD2<Double>.init(x: (electronDistance * cos(angle) / distanceSquared), y: (electronDistance * sin(angle) / distanceSquared))
             
             diffVectors[comparison] += force
             
@@ -92,21 +95,21 @@ class ElectronsModel {
       
       // Calculate forces from walls if electron is sufficiently close to one
       if firstElectron.position.x < wallDistance {
-        let d = firstElectron.position.x - 10
+        let d = firstElectron.position.x - Double(Electron.radius + 1)
         let d2 = d * d
         diffVectors[current] += SIMD2<Double>.init(x: 50 / d2, y: 0)
       } else if firstElectron.position.x > Double(UIScreen.main.bounds.width) - wallDistance {
-        let d = Double(UIScreen.main.bounds.width) - firstElectron.position.x - 10
+        let d = Double(UIScreen.main.bounds.width) - firstElectron.position.x + Double(Electron.radius + 1)
         let d2 = d * d
         diffVectors[current] += SIMD2<Double>.init(x: -50 / d2, y: 0)
       }
       
       if firstElectron.position.y < wallDistance {
-        let d = firstElectron.position.y - 10
+        let d = firstElectron.position.y - Double(Electron.radius + 1)
         let d2 = d * d
         diffVectors[current] += SIMD2<Double>.init(x: 0, y: 50 / d2)
       } else if firstElectron.position.y > Double(UIScreen.main.bounds.height) - wallDistance {
-        let d = Double(UIScreen.main.bounds.height) - firstElectron.position.y - 10
+        let d = Double(UIScreen.main.bounds.height) - firstElectron.position.y + Double(Electron.radius + 1)
         let d2 = d * d
         diffVectors[current] += SIMD2<Double>.init(x: 0, y: -50 / d2)
       }
@@ -122,9 +125,7 @@ class ElectronsModel {
           
           // Calculate the angle at which the force will be applied
           let angle = atan2(Double(touch.y) - firstElectron.position.y, Double(touch.x) - firstElectron.position.x)
-          
-          var force = SIMD2<Double>.init(x: (1000 * cos(angle) / distanceSquared), y: (1000 * sin(angle) / distanceSquared))
-          force *= -1
+          let force = SIMD2<Double>.init(x: -(1000 * cos(angle) / distanceSquared), y: -(1000 * sin(angle) / distanceSquared))
           diffVectors[current] += force
         }
       }
@@ -137,5 +138,6 @@ class ElectronsModel {
       firstElectron.velocity += diffVectors[current]
       firstElectron.update()
     }
+    CATransaction.commit()
   }
 }
