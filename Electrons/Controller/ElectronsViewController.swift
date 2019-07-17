@@ -1,7 +1,6 @@
 import UIKit
-import SpriteKit
 
-class ElectronsViewController: UIViewController {  
+final class ElectronsViewController: UIViewController {  
   private let model: ElectronsModel
   
   init(model: ElectronsModel) {
@@ -22,26 +21,25 @@ class ElectronsViewController: UIViewController {
     self.view = view
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    self.typedView.touchDelegate = self
-  }
-  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
-    /*
-     Fill the view with as many electrons that can fit the screen or
-     with the number of electrons specified in AppDelegate, whichever one is
-     larger.
-     */
+    model.onUpdate = { [weak self] (electrons) in
+      self?.typedView.update(using: electrons)
+    }
     
-    for _ in 0..<self.model.capacity {
-      let x = Double.random(in: Double(Electron.radius + 5)...Double(UIScreen.main.bounds.width - Electron.radius - 5))
-      let y = Double.random(in: Double(Electron.radius + 5)...Double(UIScreen.main.bounds.height - Electron.radius - 5))
-      guard let electron = model.addElectron(at: .init(x: x, y: y)) else { break }
-      let electronLayer = self.typedView.createNewElectronLayer(for: electron.id)
-      electron.visualDelegate = electronLayer
+    let denominator = CGFloat(sqrt(Double(model.capacity)))
+    let totalX = view.bounds.width - 20
+    let totalY = view.bounds.height - 20
+    
+    outerLoop: for y in stride(from: 10, through: view.bounds.height - 10, by: totalY / denominator) {
+      for x in stride(from: 10, through: view.bounds.width - 10, by: totalX / denominator) {
+        if model.addElectron(at: .init(x: x, y: y)) {
+          typedView.createNewElectronLayer()
+        } else {
+          break outerLoop
+        }
+      }
     }
   }
   
@@ -51,16 +49,14 @@ class ElectronsViewController: UIViewController {
   }
   
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-    return .portrait
+    switch UIDevice.current.userInterfaceIdiom {
+    case .pad: return [.landscapeLeft, .landscapeRight, .landscape]
+    case .phone: return .portrait
+    default: return .portrait
+    }
   }
   
   override var prefersStatusBarHidden: Bool {
     return true
-  }
-}
-
-extension ElectronsViewController: ElectronsViewTouchDelegate {
-  func touch(at point: CGPoint?) {
-    self.model.touch = point
   }
 }
