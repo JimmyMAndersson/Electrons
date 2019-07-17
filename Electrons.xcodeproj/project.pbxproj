@@ -7,25 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F86C3D122E0F1C100FFDB2D /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F86C3D022E0F1C100FFDB2D /* Info.swift */; };
 		7F992E47225914AE00B2F580 /* ElectronsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F992E46225914AE00B2F580 /* ElectronsView.swift */; };
 		7F992E49225915B900B2F580 /* ElectronsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F992E48225915B900B2F580 /* ElectronsModel.swift */; };
 		7F992E4B225915E500B2F580 /* Electron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F992E4A225915E500B2F580 /* Electron.swift */; };
+		7FA4666522E278EE00683416 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FA4666422E278EE00683416 /* LaunchScreen.storyboard */; };
 		7FBC4D4C2258EC81008D5C75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBC4D4B2258EC81008D5C75 /* AppDelegate.swift */; };
 		7FBC4D532258EC82008D5C75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7FBC4D522258EC82008D5C75 /* Assets.xcassets */; };
-		7FBC4D562258EC82008D5C75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FBC4D542258EC82008D5C75 /* LaunchScreen.storyboard */; };
 		7FBC4D5E2258ECA2008D5C75 /* ElectronsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBC4D5D2258ECA2008D5C75 /* ElectronsViewController.swift */; };
+		7FF1989822DCCF2800D85276 /* ForceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF1989722DCCF2800D85276 /* ForceCalculator.swift */; };
+		7FF1989A22DCD35B00D85276 /* BufferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF1989922DCD35B00D85276 /* BufferManager.swift */; };
+		7FF1989C22DCDEC200D85276 /* Calculator.metal in Sources */ = {isa = PBXBuildFile; fileRef = 7FF1989B22DCDEC200D85276 /* Calculator.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7F86C3D022E0F1C100FFDB2D /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		7F992E46225914AE00B2F580 /* ElectronsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectronsView.swift; sourceTree = "<group>"; };
 		7F992E48225915B900B2F580 /* ElectronsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectronsModel.swift; sourceTree = "<group>"; };
 		7F992E4A225915E500B2F580 /* Electron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Electron.swift; sourceTree = "<group>"; };
+		7FA4666422E278EE00683416 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7FBC4D482258EC81008D5C75 /* Electrons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Electrons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FBC4D4B2258EC81008D5C75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7FBC4D522258EC82008D5C75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7FBC4D552258EC82008D5C75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7FBC4D572258EC82008D5C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FBC4D5D2258ECA2008D5C75 /* ElectronsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectronsViewController.swift; sourceTree = "<group>"; };
+		7FF1989722DCCF2800D85276 /* ForceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceCalculator.swift; sourceTree = "<group>"; };
+		7FF1989922DCD35B00D85276 /* BufferManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferManager.swift; sourceTree = "<group>"; };
+		7FF1989B22DCDEC200D85276 /* Calculator.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Calculator.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +71,7 @@
 				7FD625E8226B893A0075CBDA /* View */,
 				7FD625E6226B89250075CBDA /* Controller */,
 				7FBC4D522258EC82008D5C75 /* Assets.xcassets */,
-				7FBC4D542258EC82008D5C75 /* LaunchScreen.storyboard */,
+				7FA4666422E278EE00683416 /* LaunchScreen.storyboard */,
 				7FBC4D572258EC82008D5C75 /* Info.plist */,
 			);
 			path = Electrons;
@@ -81,7 +89,11 @@
 			isa = PBXGroup;
 			children = (
 				7F992E48225915B900B2F580 /* ElectronsModel.swift */,
+				7FF1989922DCD35B00D85276 /* BufferManager.swift */,
+				7FF1989722DCCF2800D85276 /* ForceCalculator.swift */,
+				7F86C3D022E0F1C100FFDB2D /* Info.swift */,
 				7F992E4A225915E500B2F580 /* Electron.swift */,
+				7FF1989B22DCDEC200D85276 /* Calculator.metal */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -152,8 +164,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FBC4D562258EC82008D5C75 /* LaunchScreen.storyboard in Resources */,
 				7FBC4D532258EC82008D5C75 /* Assets.xcassets in Resources */,
+				7FA4666522E278EE00683416 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,24 +178,17 @@
 			files = (
 				7F992E47225914AE00B2F580 /* ElectronsView.swift in Sources */,
 				7FBC4D5E2258ECA2008D5C75 /* ElectronsViewController.swift in Sources */,
+				7FF1989822DCCF2800D85276 /* ForceCalculator.swift in Sources */,
+				7F86C3D122E0F1C100FFDB2D /* Info.swift in Sources */,
+				7FF1989C22DCDEC200D85276 /* Calculator.metal in Sources */,
 				7F992E4B225915E500B2F580 /* Electron.swift in Sources */,
 				7FBC4D4C2258EC81008D5C75 /* AppDelegate.swift in Sources */,
+				7FF1989A22DCD35B00D85276 /* BufferManager.swift in Sources */,
 				7F992E49225915B900B2F580 /* ElectronsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		7FBC4D542258EC82008D5C75 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7FBC4D552258EC82008D5C75 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7FBC4D582258EC82008D5C75 /* Debug */ = {
@@ -222,13 +227,13 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -247,7 +252,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -315,15 +320,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_OPTIMIZATION = time;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B9K7BH8N94;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				INFOPLIST_FILE = Electrons/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LLVM_LTO = YES_THIN;
+				LLVM_LTO = YES;
+				MTL_COMPILER_FLAGS = "";
+				MTL_LANGUAGE_REVISION = UseDeploymentTarget;
+				MTL_OPTIMIZATION_LEVEL = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.applyn.Electrons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
@@ -340,15 +349,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_OPTIMIZATION = time;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B9K7BH8N94;
-				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				INFOPLIST_FILE = Electrons/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LLVM_LTO = YES_THIN;
+				LLVM_LTO = YES;
+				MTL_COMPILER_FLAGS = "";
+				MTL_LANGUAGE_REVISION = UseDeploymentTarget;
+				MTL_OPTIMIZATION_LEVEL = 3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.applyn.Electrons;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_DISABLE_SAFETY_CHECKS = YES;
